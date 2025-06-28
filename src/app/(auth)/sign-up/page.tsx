@@ -3,7 +3,7 @@ import { SignUpView } from "@/modules/auth/ui/views/sign-up-view"
 import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 
-const SinUpPage = async () => {
+const SignUpPage = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   })
@@ -15,4 +15,4 @@ const SinUpPage = async () => {
   return <SignUpView />
 }
 
-export default SinUpPage
+export default SignUpPage
