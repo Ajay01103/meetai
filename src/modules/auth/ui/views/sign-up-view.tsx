@@ -1,8 +1,7 @@
 "use client"
 
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
 import {
   Form,
   FormControl,
@@ -11,17 +10,18 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
 import { OctagonAlert } from "lucide-react"
 
-import * as z from "zod/v4"
-import Image from "next/image"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
 import { Alert, AlertTitle } from "@/components/ui/alert"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
 import { authClient } from "@/lib/auth-client"
+import { zodResolver } from "@hookform/resolvers/zod"
+import Image from "next/image"
+import Link from "next/link"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import * as z from "zod/v4"
+import { useRouter } from "next/navigation"
 
 const formSchema = z
   .object({
@@ -59,11 +59,33 @@ export const SignUpView = () => {
         name: data.name,
         email: data.email,
         password: data.password,
+        callbackURL: "/",
       },
       {
         onSuccess: () => {
           setPending(false)
           router.push("/")
+        },
+        onError: ({ error }) => {
+          setPending(false)
+          setError(error.message)
+        },
+      }
+    )
+  }
+
+  const onSocial = (provider: "google" | "github") => {
+    setError(null)
+    setPending(true)
+
+    authClient.signIn.social(
+      {
+        provider,
+        callbackURL: "/",
+      },
+      {
+        onSuccess: () => {
+          setPending(false)
         },
         onError: ({ error }) => {
           setPending(false)
@@ -100,7 +122,7 @@ export const SignUpView = () => {
                         <FormControl>
                           <Input
                             type="text"
-                            placeholder="Jhon"
+                            placeholder="John"
                             {...field}
                           />
                         </FormControl>
@@ -186,19 +208,33 @@ export const SignUpView = () => {
 
                 <div className="grid grid-cols-2 gap-4">
                   <Button
+                    onClick={() => onSocial("google")}
                     disabled={pending}
                     variant="outline"
                     type="button"
                     className="w-full"
                   >
+                    <img
+                      src="/google.svg"
+                      width={20}
+                      height={20}
+                      alt="google"
+                    />
                     Google
                   </Button>
                   <Button
+                    onClick={() => onSocial("github")}
                     disabled={pending}
                     variant="outline"
                     type="button"
                     className="w-full"
                   >
+                    <img
+                      src="/github.svg"
+                      width={25}
+                      height={25}
+                      alt="github"
+                    />
                     Github
                   </Button>
                 </div>
