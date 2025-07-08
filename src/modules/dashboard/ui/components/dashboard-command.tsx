@@ -1,4 +1,8 @@
-import { CommandDialog, CommandInput, CommandItem } from "@/components/ui/command"
+import {
+  CommandInput,
+  CommandItem,
+  CommandResponsiveDialog,
+} from "@/components/ui/command"
 import { Dispatch, SetStateAction } from "react"
 
 interface Props {
@@ -8,12 +12,12 @@ interface Props {
 
 export const DashboardCommand = ({ open, setOpen }: Props) => {
   return (
-    <CommandDialog
+    <CommandResponsiveDialog
       open={open}
       onOpenChange={setOpen}
     >
       <CommandInput placeholder="Find a meeting or agent" />
       <CommandItem>Test</CommandItem>
-    </CommandDialog>
+    </CommandResponsiveDialog>
   )
 }
