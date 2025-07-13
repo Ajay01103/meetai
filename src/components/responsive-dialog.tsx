@@ -15,7 +15,6 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "./ui/drawer"
-import { desc } from "drizzle-orm"
 
 interface Props {
   title: string
