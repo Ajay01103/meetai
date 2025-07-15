@@ -32,7 +32,7 @@ export const AgentsForm = ({ initialValues, onCancel, onSuccess }: Props) => {
   const createAgent = useMutation(
     trpc.agents.create.mutationOptions({
       onSuccess: () => {
-        queryClient.invalidateQueries(trpc.agents.getMany.queryOptions())
+        queryClient.invalidateQueries(trpc.agents.getMany.queryOptions({}))
 
         if (initialValues?.id) {
           queryClient.invalidateQueries(
@@ -104,6 +104,7 @@ export const AgentsForm = ({ initialValues, onCancel, onSuccess }: Props) => {
                 <Textarea
                   {...field}
                   placeholder="you are a senior dev"
+                  className="resize-none"
                 />
               </FormControl>
               <FormMessage />
