@@ -1,4 +1,4 @@
-import { DEFAULT_PAGE } from "@/onstants"
+import { DEFAULT_PAGE } from "@/constants"
 import { parseAsInteger, parseAsString, createLoader } from "nuqs/server"
 
 export const filterSearchParams = {

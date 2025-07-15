@@ -6,7 +6,7 @@ import { useState } from "react"
 import { NewAgentDialog } from "./new-agent-dialog"
 import { AgentsSearchFilter } from "./agents-search-filter"
 import { useAgentsFilters } from "../../hooks/use-agents-filter"
-import { DEFAULT_PAGE } from "@/onstants"
+import { DEFAULT_PAGE } from "@/constants"
 
 export const AgentsListHeader = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false)

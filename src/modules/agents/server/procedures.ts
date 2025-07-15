@@ -5,7 +5,12 @@ import { createTRPCRouter, protectedProcedure } from "@/trpc/init"
 import { and, count, desc, eq, getTableColumns, ilike, sql } from "drizzle-orm"
 import * as z from "zod/v4"
 import { agentsInsertSchema } from "../schemas"
-import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE, MIN_PAGE_SIZE } from "@/onstants"
+import {
+  DEFAULT_PAGE,
+  DEFAULT_PAGE_SIZE,
+  MAX_PAGE_SIZE,
+  MIN_PAGE_SIZE,
+} from "@/constants"
 
 export const agentsRouter = createTRPCRouter({
   getOne: protectedProcedure
