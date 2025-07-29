@@ -62,6 +62,7 @@ export const CommandSelect = ({
           placeholder="Search..."
           onValueChange={onSearch}
         />
+
         <CommandList>
           <CommandEmpty>
             <span className="text-muted-foreground text-sm">No options</span>

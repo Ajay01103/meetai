@@ -1,9 +1,8 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Plus, XCircle } from "lucide-react"
+import { Plus } from "lucide-react"
 import { useState } from "react"
-import { DEFAULT_PAGE } from "@/constants"
 import { NewMeetingDialog } from "./new-meeting-dialog"
 
 export const MeetingsListHeader = () => {
