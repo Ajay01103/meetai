@@ -1,7 +1,7 @@
 import { ErrorState } from "@/components/error-state"
 import { LoadingState } from "@/components/loading-state"
 import { auth } from "@/lib/auth"
-import { AgentsListHeader } from "@/modules/agents/ui/components/list-header"
+import { AgentsListHeader } from "@/modules/agents/ui/components/agents-list-header"
 import { AgentsView } from "@/modules/agents/ui/views/agents-view"
 import { loadSearchParams } from "@/modules/params"
 import { getQueryClient, trpc } from "@/trpc/server"
