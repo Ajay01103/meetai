@@ -21,7 +21,6 @@ interface Props {
   onSearch?: (value: string) => void
   value: string
   placeholder?: string
-  isSearchable?: boolean
   className?: string
 }
 
@@ -30,12 +29,16 @@ export const CommandSelect = ({
   options,
   value,
   className,
-  isSearchable,
   onSearch,
   placeholder,
 }: Props) => {
   const [open, setOpen] = useState(false)
   const selectedOption = options.find((option) => option.value === value)
+
+  const handleOpenChange = (value: boolean) => {
+    onSearch?.("")
+    setOpen(value)
+  }
 
   return (
     <>
@@ -56,7 +59,7 @@ export const CommandSelect = ({
       <CommandResponsiveDialog
         shouldFilter={!onSearch}
         open={open}
-        onOpenChange={setOpen}
+        onOpenChange={handleOpenChange}
       >
         <CommandInput
           placeholder="Search..."
