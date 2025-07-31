@@ -6,9 +6,6 @@ import { GeneratedAvatar } from "@/components/generated-avatar"
 import { CornerRightDown, Video } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-
 export const columns: ColumnDef<AgentGetMany[number]>[] = [
   {
     accessorKey: "name",
