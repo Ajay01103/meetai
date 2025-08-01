@@ -11,7 +11,11 @@ import {
   MIN_PAGE_SIZE,
 } from "@/constants"
 import { TRPCError } from "@trpc/server"
-import { meetingsInsertSchema, meetingsUpdateSchema } from "../schemas"
+import {
+  meetingsInsertSchema,
+  meetingsRemoveSchema,
+  meetingsUpdateSchema,
+} from "../schemas"
 import { MeetingStatus } from "../types"
 
 export const meetingsRouter = createTRPCRouter({
@@ -25,8 +29,13 @@ export const meetingsRouter = createTRPCRouter({
       const [existingmeeting] = await db
         .select({
           ...getTableColumns(meetings),
+          agent: agents,
+          duration: sql<number>`EXTRACT(EPOCH FROM (ended_at - started_at))`.as(
+            "duration"
+          ),
         })
         .from(meetings)
+        .innerJoin(agents, eq(meetings.agentId, agents.id))
         .where(and(eq(meetings.id, input.id), eq(meetings.userId, ctx.auth.user.id)))
 
       if (!existingmeeting) {
@@ -46,15 +55,7 @@ export const meetingsRouter = createTRPCRouter({
           .default(DEFAULT_PAGE_SIZE),
         search: z.string().nullish(),
         agentId: z.string().nullish(),
-        status: z
-          .enum([
-            MeetingStatus.Upcoming,
-            MeetingStatus.Active,
-            MeetingStatus.Completed,
-            MeetingStatus.Processing,
-            MeetingStatus.Cancelled,
-          ])
-          .nullish(),
+        status: z.enum(MeetingStatus).nullish(),
       })
     )
     .query(async ({ ctx, input }) => {
@@ -134,5 +135,19 @@ export const meetingsRouter = createTRPCRouter({
       }
 
       return updatedMeeting
+    }),
+  remove: protectedProcedure
+    .input(meetingsRemoveSchema)
+    .mutation(async ({ input, ctx }) => {
+      const [deletedMeeting] = await db
+        .delete(meetings)
+        .where(and(eq(meetings.id, input.id), eq(meetings.userId, ctx.auth.user.id)))
+        .returning()
+
+      if (!deletedMeeting) {
+        throw new TRPCError({ code: "NOT_FOUND" })
+      }
+
+      return deletedMeeting
     }),
 })
