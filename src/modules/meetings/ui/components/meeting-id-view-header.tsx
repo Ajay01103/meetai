@@ -45,7 +45,7 @@ export const MeetingIdViewHeader = ({
             </BreadcrumbLink>
           </BreadcrumbItem>
 
-          <BreadcrumbSeparator className="text-foreground text-xl font-medium [&svg:size-4">
+          <BreadcrumbSeparator className="text-foreground text-xl font-medium [&>svg:size-4">
             <ChevronRightIcon />
           </BreadcrumbSeparator>
 
