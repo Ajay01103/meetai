@@ -12,7 +12,7 @@ export const CallEnded = () => {
           </div>
 
           <Button asChild>
-            <Link href={`/meetings`}>Back to meeting</Link>
+            <Link href={`/meetings`}>Back to meetings</Link>
           </Button>
         </div>
       </div>

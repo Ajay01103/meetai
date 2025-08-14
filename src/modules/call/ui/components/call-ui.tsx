@@ -17,8 +17,8 @@ export const CallUI = ({ meetingName }: Props) => {
       return
     }
 
-    setShow("call")
     await call.join()
+    setShow("call")
   }
 
   const handleLeave = () => {
